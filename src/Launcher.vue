@@ -1,11 +1,21 @@
 <template>
   <div>
-    <div class="sc-launcher" :class="{opened: isOpen}" @click.prevent="isOpen ? close() : open()" :style="{backgroundColor: colors.launcher.bg}">
+    <div class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
       </div>
-      <img class="sc-open-icon" src="./assets/close-icon.png" />
-      <img class="sc-closed-icon" src="./assets/logo-no-bg.svg" />
+      <div
+        v-for="(action, idx) in additionalActions"
+        :key="idx"
+        :class="`sc-additional-action ${action.class || ''}`"
+        :style="{
+          transitionDelay: `${50 * idx}ms`,
+          transform: `translateX(-${isOpen ? 65 + (40 + 15) * idx : 0}px)`
+        }"
+        @click="action.onClick"
+      />
+      <img @click.prevent="isOpen ? close() : open()" class="sc-open-icon" src="./assets/close-icon.png" />
+      <img @click.prevent="isOpen ? close() : open()" class="sc-closed-icon" src="./assets/logo-no-bg.svg" />
     </div>
     <ChatWindow
       :messageList="messageList"
@@ -133,7 +143,11 @@ export default {
     messageStyling: {
       type: Boolean,
       default: () => false
-    }
+    },
+    additionalActions: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     chatWindowTitle() {
@@ -188,6 +202,17 @@ export default {
   transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
 }
 
+.sc-launcher .sc-additional-action {
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  border-radius: 40px;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out, transform 200ms ease-in-out;
+}
+
 .sc-launcher .sc-closed-icon {
   transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
   width: 60px;
@@ -208,6 +233,10 @@ export default {
 .sc-launcher.opened .sc-closed-icon {
   transform: rotate(-90deg);
   opacity: 0;
+}
+
+.sc-launcher.opened .sc-additional-action {
+  opacity: 1;
 }
 
 .sc-launcher.opened:before {
