@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sc-wrapper">
     <div class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
@@ -168,14 +168,20 @@ export default {
 }
 </script>
 <style scoped>
+.sc-wrapper {
+  position: fixed;
+  right: 90px;
+  bottom: 75px;
+}
+
 .sc-launcher {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 60px;
   height: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  position: fixed;
-  right: 25px;
-  bottom: 25px;
   border-radius: 50%;
   box-shadow: none;
   transition: box-shadow 0.2s ease-in-out;
@@ -194,20 +200,20 @@ export default {
 
 .sc-launcher .sc-open-icon,
 .sc-launcher .sc-closed-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 60px;
   height: 60px;
-  position: fixed;
-  right: 25px;
-  bottom: 25px;
   transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
 }
 
 .sc-launcher .sc-additional-action {
+  position: absolute;
   width: 40px;
   height: 40px;
-  position: fixed;
-  bottom: 35px;
-  right: 35px;
+  top: 10px;
+  left: 10px;
   border-radius: 40px;
   opacity: 0;
   transition: opacity 250ms ease-in-out, transform 200ms ease-in-out;

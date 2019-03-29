@@ -126,28 +126,44 @@ export default {
 }
 </script>
 <style scoped>
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(calc(60px - 100%)) translateY(calc(-100%));
+  }
+  90% {
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(calc(60px - 100%)) translateY(calc(-20px - 100%));
+  }
+}
+
 .sc-chat-window {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 370px;
-  height: calc(100% - 120px);
   max-height: 590px;
-  position: fixed;
-  right: 25px;
-  bottom: 100px;
   box-sizing: border-box;
   box-shadow: 0px 7px 40px 2px rgba(148, 149, 150, 0.1);
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: 0.3s ease-in-out;
   border-radius: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.sc-chat-window.opened {
+  animation: fade-in .3s ease-in-out 0s 1 normal both;
+}
 .sc-chat-window.closed {
   opacity: 0;
   visibility: hidden;
-  bottom: 90px;
+  transform: translateX(calc(60px - 100%)) translateY(60px);
 }
 
 .sc-message--me {
