@@ -1,5 +1,5 @@
 <template>
-  <div class="sc-wrapper">
+  <div class="sc-wrapper" :class="{opened: isOpen}">
     <div class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
@@ -269,5 +269,22 @@ export default {
   margin: auto;
   font-size: 12px;
   font-weight: 500;
+}
+
+@media (max-width: 450px) {
+  .sc-wrapper.opened {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    height: 100%;
+    width: 100%;
+  }
+  .sc-launcher.opened {
+    top: auto;
+    left: auto;
+    bottom: 5px;
+    right: 5px;
+  }
 }
 </style>

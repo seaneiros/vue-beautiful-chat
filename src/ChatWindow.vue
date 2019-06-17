@@ -176,7 +176,7 @@ export default {
 @media (max-width: 450px) {
   .sc-chat-window {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 70px);
     max-height: 100%;
     right: 0px;
     bottom: 0px;
@@ -184,6 +184,9 @@ export default {
   }
   .sc-chat-window {
     transition: 0.1s ease-in-out;
+  }
+  .sc-chat-window.opened {
+    animation: none;
   }
   .sc-chat-window.closed {
     bottom: 0px;
