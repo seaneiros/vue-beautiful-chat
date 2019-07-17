@@ -1,6 +1,13 @@
 <template>
-  <div class="sc-wrapper" :class="{opened: isOpen}">
-    <div class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
+  <div
+    class="sc-wrapper"
+    :class="{
+      opened: isOpen && !embedded,
+      'sc-wrapper--with-actions': additionalActions.length !== 0,
+      embedded,
+    }"
+  >
+    <div v-if="!embedded" class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
       </div>
@@ -23,7 +30,7 @@
       :participants="participants"
       :title="chatWindowTitle"
       :titleImageUrl="titleImageUrl"
-      :isOpen="isOpen"
+      :isOpen="isOpen || embedded"
       :onClose="close"
       :showEmoji="showEmoji"
       :showFile="showFile"
@@ -32,8 +39,24 @@
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
       :messageStyling="messageStyling"
+      :embedded="embedded"
       @scrollToTop="$emit('scrollToTop')"
     />
+    <div
+      v-if="embedded && additionalActions.length !== 0"
+      :style="{
+        textAlign: 'right',
+        height: '24px',
+        margin: '6px auto',
+      }"
+    >
+      <div
+        v-for="(action, idx) in additionalActions"
+        :key="idx"
+        :class="`sc-additional-action ${action.class || ''}`"
+        @click="action.onClick"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -148,6 +171,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     chatWindowTitle() {
@@ -172,6 +199,30 @@ export default {
   position: fixed;
   right: 90px;
   bottom: 75px;
+}
+
+.sc-wrapper.embedded {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.sc-wrapper.embedded.sc-wrapper--with-actions {
+  padding-bottom: 36px;
+}
+
+.sc-wrapper.embedded .sc-additional-action {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+}
+
+.sc-wrapper.embedded .sc-additional-action:not(:last-of-type) {
+  margin-right: 5px;
 }
 
 .sc-launcher {

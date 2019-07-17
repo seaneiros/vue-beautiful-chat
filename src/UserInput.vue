@@ -6,7 +6,7 @@
       {{file.name}}
       <span class='delete-file-message' @click="cancelFile()" ><img src="./assets/close.svg" alt='close icon' height="10" title='Remove the file' /></span>
     </div>
-    <form class="sc-user-input" :class="{active: inputActive}" :style="{background: colors.userInput.bg}">
+    <form class="sc-user-input" :class="{active: inputActive && !embedded, embedded}" :style="{background: colors.userInput.bg}">
       <div
         role="button"
         tabIndex="0"
@@ -51,6 +51,10 @@ export default {
     Suggestions
   },
   props: {
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
     showEmoji: {
       type: Boolean,
       default: () => false
@@ -154,6 +158,11 @@ export default {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sc-user-input.embedded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .sc-user-input--text {

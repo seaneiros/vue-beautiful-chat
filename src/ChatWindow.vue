@@ -1,6 +1,7 @@
 <template>
-  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen}">
+  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen, embedded}">
     <Header
+      v-if="!embedded"
       :title="title"
       :imageUrl="titleImageUrl"
       :onClose="onClose"
@@ -8,7 +9,7 @@
       @userList="handleUserListToggle"
     />
     <UserList 
-      v-if="showUserList"
+      v-if="showUserList && !embedded"
       :participants="participants"
     />
     <MessageList
@@ -23,6 +24,7 @@
     />
     <UserInput
       v-if="!showUserList"
+      :embedded="embedded"
       :showEmoji="showEmoji"
       :onSubmit="onUserInputSubmit"
       :suggestions="getSuggestions()"
@@ -46,6 +48,10 @@ export default {
     UserList
   },
   props: {
+    embedded: {
+      type: Boolean,
+      defafult: false,
+    },
     showEmoji: {
       type: Boolean,
       default: false
@@ -164,6 +170,16 @@ export default {
   opacity: 0;
   visibility: hidden;
   transform: translateX(calc(60px - 100%)) translateY(60px);
+}
+
+.sc-chat-window.embedded {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  box-shadow: none;
+  animation: none;
+  border-radius: 0;
 }
 
 .sc-message--me {
