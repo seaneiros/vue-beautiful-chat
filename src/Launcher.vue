@@ -39,6 +39,7 @@
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
       :messageStyling="messageStyling"
+      :disableUserListToggle="disableUserListToggle"
       :embedded="embedded"
       @scrollToTop="$emit('scrollToTop')"
     />
@@ -166,6 +167,10 @@ export default {
     messageStyling: {
       type: Boolean,
       default: () => false
+    },
+    disableUserListToggle: {
+      type: Boolean,
+      default: false
     },
     additionalActions: {
       type: Array,
