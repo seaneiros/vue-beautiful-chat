@@ -202,15 +202,17 @@ export default {
     right: 0px;
     bottom: 0px;
     border-radius: 0px;
-  }
-  .sc-chat-window {
-    transition: 0.1s ease-in-out;
+    animation: none;
+    transition: 0.2s ease-in-out;
   }
   .sc-chat-window.opened {
+    opacity: 1;
     animation: none;
+    transform: translateX(0) translateY(0);
   }
   .sc-chat-window.closed {
-    bottom: 0px;
+    opacity: 0;
+    transform: translateX(0) translateY(calc(80px + 100%));
   }
 }
 </style>

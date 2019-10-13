@@ -328,19 +328,26 @@ export default {
 }
 
 @media (max-width: 450px) {
-  .sc-wrapper.opened {
+  .sc-wrapper {
     position: fixed;
-    top: 0;
+    top: 100%;
     right: 0;
     bottom: auto;
     height: 100%;
     width: 100%;
   }
+  .sc-wrapper.opened {
+    top: 0;
+  }
+  .sc-launcher {
+    transform: translateY(calc(-5px - 100%));
+    left: auto;
+    right: 5px;
+  }
   .sc-launcher.opened {
     top: auto;
-    left: auto;
     bottom: 5px;
-    right: 5px;
+    transform: translateY(0);
   }
 }
 </style>
