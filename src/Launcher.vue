@@ -208,6 +208,7 @@ export default {
 
 .sc-wrapper.embedded {
   position: relative;
+  top: 0;
   right: auto;
   bottom: auto;
   width: 100%;
@@ -224,6 +225,7 @@ export default {
   width: 24px;
   height: 24px;
   border-radius: 24px;
+  background-size: 20px;
 }
 
 .sc-wrapper.embedded .sc-additional-action:not(:last-of-type) {
