@@ -7,7 +7,7 @@
       embedded,
     }"
   >
-    <div v-if="!embedded" class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
+    <div v-if="showFloatingButton && !embedded" class="sc-launcher" :class="{opened: isOpen}" :style="{backgroundColor: colors.launcher.bg}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
       </div>
@@ -179,6 +179,10 @@ export default {
     embedded: {
       type: Boolean,
       default: false,
+    },
+    showFloatingButton: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
