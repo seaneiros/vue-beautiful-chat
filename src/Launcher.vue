@@ -23,6 +23,7 @@
       />
       <img @click.prevent="isOpen ? close() : open()" class="sc-open-icon" src="./assets/close-icon.png" />
       <img @click.prevent="isOpen ? close() : open()" class="sc-closed-icon" src="./assets/logo-no-bg.svg" />
+      <slot name="launcher-slot" />
     </div>
     <ChatWindow
       :messageList="messageList"
